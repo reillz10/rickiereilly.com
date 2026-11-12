@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpaceX 5-10 Year Valuation Model (Elon Musk & Ron Baron Interview)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            space: {
+              950: '#06080F',
+              900: '#0B0F19',
+              800: '#131B2E',
+              700: '#1E2942',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #06080F;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+    }
+    /* Custom Range Slider Styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: #1E293B;
+      border-radius: 9999px;
+      border: 1px solid #334155;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #38BDF8;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -8px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+      border: 2px solid #FFFFFF;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #7DD3FC;
+    }
+    input[type=range]::-moz-range-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: #1E293B;
+      border-radius: 9999px;
+      border: 1px solid #334155;
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #38BDF8;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+      border: 2px solid #FFFFFF;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    .glass-card {
+      background: rgba(19, 27, 46, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-sky-500 selection:text-white pb-16">
+
+  <!-- Top Ambient Glow -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-5xl h-64 bg-sky-500/10 blur-[120px] pointer-events-none -z-10"></div>
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 bg-space-950/80 backdrop-blur-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30">Interactive Simulator</span>
+            <span class="text-xs text-slate-400 hidden sm:inline">NASDAQ: SPCX ($1.94T Baseline)</span>
+          </div>
+          <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight mt-0.5">
+            SpaceX 5–10 Year Valuation Model <span class="text-slate-400 font-normal text-sm sm:text-base">(Elon Musk & Ron Baron Interview)</span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 self-start sm:self-auto">
+        <button id="copySummaryBtn" onclick="copyShareSummary()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shadow-sm">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+          </svg>
+          <span id="copyBtnText">Copy Summary to Share</span>
+        </button>
+        <a href="https://www.youtube.com/watch?v=IjWbvz95w08" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold transition shadow-lg shadow-sky-500/20">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          Watch Interview
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+
+    <!-- Plain-English Explainer Banner for Family Sharing -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 border-l-4 border-l-sky-400 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <h2 class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+          <span>How to read this model (Plain-English Guide)</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          In his interview with investor Ron Baron, Elon Musk projected SpaceX will hit <strong>$500 Billion</strong> in annual revenue by late 2027 from Starlink and terrestrial AI data centers—and then begin launching <strong>"Star Mind" orbital AI satellites</strong> via Starship. Use the preset buttons or sliders below to see how stacking orbital AI capacity impacts SpaceX's total value. Every number is written clearly in <strong>Trillions</strong> or <strong>Quadrillions</strong> so there are no confusing abbreviations.
+        </p>
+      </div>
+      <div class="flex-shrink-0 bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-300 space-y-1">
+        <div class="font-semibold text-sky-400">Quick Scale Reference:</div>
+        <div>• <strong>$1.94 Trillion:</strong> SpaceX Today (~$145/sh)</div>
+        <div>• <strong>~$130 Trillion:</strong> Entire World GDP</div>
+        <div>• <strong>$1,000 Trillion:</strong> $1 Quadrillion</div>
+      </div>
+    </div>
+
+    <!-- 1. Hero / Summary Cards -->
+    <section aria-label="Key Valuation Metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Card 1: Projected Market Cap -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden border border-sky-500/30 shadow-lg shadow-sky-950/30">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Projected Market Cap</span>
+          <span id="cardYearBadge" class="text-xs font-medium px-2 py-0.5 rounded-md bg-sky-500/15 text-sky-300">Year 5 (2032)</span>
+        </div>
+        <div id="heroMarketCap" class="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
+          $78.31 Trillion
+        </div>
+        <div id="heroMarketCapSub" class="text-xs text-slate-400 mt-2 flex items-center gap-1.5">
+          <span>At 12x Price-to-Sales multiple</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Total Annual Revenue -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Total Annual Revenue</span>
+          <span class="text-xs text-slate-400">Recurring (ARR)</span>
+        </div>
+        <div id="heroRevenue" class="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
+          $6.53 Trillion
+        </div>
+        <div id="heroRevenueBreakdown" class="text-xs text-slate-400 mt-2">
+          $5.00T Orbital AI + $1.53T Starlink/Base
+        </div>
+      </div>
+
+      <!-- Card 3: Implied Share Price & Multiple -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-purple-400">Implied Share Price</span>
+          <span id="heroUpsideBadge" class="text-xs font-semibold px-2 py-0.5 rounded-md bg-purple-500/15 text-purple-300">40.4x Current</span>
+        </div>
+        <div id="heroSharePrice" class="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
+          $5,853 / share
+        </div>
+        <div class="text-xs text-slate-400 mt-2">
+          vs. ~$145/sh today ($1.94T Market Cap)
+        </div>
+      </div>
+
+      <!-- Card 4: Stacked Orbital AI Compute Capacity -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Active Orbital AI Compute</span>
+          <span class="text-xs text-slate-400">5-Yr Rolling Fleet</span>
+        </div>
+        <div id="heroOrbitalGW" class="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
+          500 GW in Orbit
+        </div>
+        <div id="heroOrbitalSub" class="text-xs text-slate-400 mt-2">
+          Generating $5.00 Trillion/yr in AI revenue
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Preset Scenario Buttons -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+        <div>
+          <h3 class="text-sm font-semibold text-white uppercase tracking-wider">One-Click Interview Scenarios</h3>
+          <p class="text-xs text-slate-400">Select a preset discussed by Elon Musk & Ron Baron or customize the sliders below</p>
+        </div>
+        <span id="activePresetLabel" class="text-xs font-medium text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg self-start sm:self-auto">
+          Active: 5-Year Base ($10B/GW)
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <button onclick="applyPreset('base5')" id="preset-base5" class="preset-btn text-left p-3.5 rounded-xl border transition-all bg-sky-500/15 border-sky-400 text-white shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm">5-Year Base ($10B/GW)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-semibold">$78.3T</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-1">100 GW/yr • $10B/GW floor • 25% Starlink growth • 12x P/S • 5 Yrs</p>
+        </button>
+
+        <button onclick="applyPreset('bull5')" id="preset-bull5" class="preset-btn text-left p-3.5 rounded-xl border transition-all bg-slate-900/70 border-slate-800 hover:border-slate-700 text-slate-200">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm">5-Year Bull ($50B/GW)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">$268.6T</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">100 GW/yr • $50B/GW current rate • 30% growth • 10x P/S • 5 Yrs</p>
+        </button>
+
+        <button onclick="applyPreset('base10')" id="preset-base10" class="preset-btn text-left p-3.5 rounded-xl border transition-all bg-slate-900/70 border-slate-800 hover:border-slate-700 text-slate-200">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm">10-Year Base</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-semibold">$97.1T</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">100 GW/yr • $10B/GW • 20% Starlink growth • 12x P/S • 10 Yrs</p>
+        </button>
+
+        <button onclick="applyPreset('terawatt10')" id="preset-terawatt10" class="preset-btn text-left p-3.5 rounded-xl border transition-all bg-slate-900/70 border-slate-800 hover:border-slate-700 text-slate-200">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm">10-Year Terawatt Scale</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">$296.6T</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">500 GW/yr • $10B/GW • 25% Starlink growth • 10x P/S • 10 Yrs</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- 3 & 5. Interactive Sliders + Live Chart Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- Left Column: Interactive Sliders (5 cols on lg) -->
+      <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-6">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white">Interactive Assumptions</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Drag any slider to test Elon Musk's interview projections in real time</p>
+        </div>
+
+        <!-- Slider 1: Annual Orbital AI Added (GW/yr) -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline">
+            <label for="sliderGW" class="text-sm font-semibold text-slate-200">
+              1. Annual Orbital AI Added
+            </label>
+            <span id="valGW" class="text-base font-bold text-sky-400 bg-sky-500/10 px-2.5 py-0.5 rounded-lg border border-sky-500/20">
+              100 GW / yr
+            </span>
+          </div>
+          <input id="sliderGW" type="range" min="20" max="1000" step="20" value="100" oninput="onSliderChange()" />
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>20 GW/yr</span>
+            <span>100 GW/yr (Base)</span>
+            <span>500 GW/yr</span>
+            <span>1,000 GW (1 TW/yr)</span>
+          </div>
+          <p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+            <strong class="text-slate-200">Interview Quote [00:34:02]:</strong> Elon targets launching 100 GW/year of "Star Mind" AI satellites initially, scaling toward 200–1,000 GW (1 Terawatt) per year via Starship.
+          </p>
+        </div>
+
+        <!-- Slider 2: Annual Revenue per GW ($ Billions) -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline">
+            <label for="sliderRevPerGW" class="text-sm font-semibold text-slate-200">
+              2. Annual Revenue per GW
+            </label>
+            <span id="valRevPerGW" class="text-base font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-lg border border-emerald-500/20">
+              $10 Billion / GW
+            </span>
+          </div>
+          <input id="sliderRevPerGW" type="range" min="5" max="50" step="5" value="10" oninput="onSliderChange()" />
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>$5B / GW</span>
+            <span>$10B (Conservative Floor)</span>
+            <span>$30B / GW</span>
+            <span>$50B (Current Rate)</span>
+          </div>
+          <p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+            <strong class="text-slate-200">Interview Quote [00:19:27 & 00:50:43]:</strong> SpaceX currently rents 1 GW of compute for <strong>$50B/year</strong>. Even if compute prices drop 80% to <strong>$10B/GW</strong>, 100 GW adds $1 Trillion/year.
+          </p>
+        </div>
+
+        <!-- Slider 3: Starlink & Terrestrial Base Annual Growth (%) -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline">
+            <label for="sliderGrowth" class="text-sm font-semibold text-slate-200">
+              3. Starlink & Base Annual Growth
+            </label>
+            <span id="valGrowth" class="text-base font-bold text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-lg border border-purple-500/20">
+              25% / yr
+            </span>
+          </div>
+          <input id="sliderGrowth" type="range" min="10" max="60" step="5" value="25" oninput="onSliderChange()" />
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>10% / yr</span>
+            <span>25% / yr</span>
+            <span>40% / yr</span>
+            <span>60% / yr</span>
+          </div>
+          <p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+            <strong class="text-slate-200">Interview Quote [00:25:57 & 00:46:44]:</strong> Starting from <strong>$500B ARR in Dec 2027</strong>, Starlink scales to 100,000 satellites as agentic AI drives 1,000x human internet traffic.
+          </p>
+        </div>
+
+        <!-- Slider 4: Terminal Price-to-Sales (P/S) Multiple -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline">
+            <label for="sliderPS" class="text-sm font-semibold text-slate-200">
+              4. Valuation Multiple (Price-to-Sales)
+            </label>
+            <span id="valPS" class="text-base font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-lg border border-amber-500/20">
+              12x Revenue
+            </span>
+          </div>
+          <input id="sliderPS" type="range" min="5" max="30" step="1" value="12" oninput="onSliderChange()" />
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>5x P/S</span>
+            <span>12x (Mature Tech)</span>
+            <span>20x P/S</span>
+            <span>30x ( vs ~60x Today)</span>
+          </div>
+          <p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+            <strong class="text-slate-200">Valuation Context [00:47:28]:</strong> SpaceX trades near ~60x trailing revenue today. Baron's 10-year model values Starlink at 14x–15x revenue (~70–80% EBITDA margins).
+          </p>
+        </div>
+
+        <!-- Slider 5: Time Horizon (Years from 2027) -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline">
+            <label for="sliderYears" class="text-sm font-semibold text-slate-200">
+              5. Time Horizon (Years from 2027)
+            </label>
+            <span id="valYears" class="text-base font-bold text-sky-400 bg-sky-500/10 px-2.5 py-0.5 rounded-lg border border-sky-500/20">
+              5 Years (2032)
+            </span>
+          </div>
+          <input id="sliderYears" type="range" min="1" max="10" step="1" value="5" oninput="onSliderChange()" />
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>1 Yr (2028)</span>
+            <span>5 Yrs (2032)</span>
+            <span>10 Yrs (2037)</span>
+          </div>
+          <p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+            <strong class="text-slate-200">5-Year Satellite Stacking [00:51:05 & 00:52:35]:</strong> Orbital AI cohorts stack cumulatively for 5 years before older satellites are deorbited and replaced.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Chart & Year-by-Year Breakdown Table (7 cols on lg) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Chart Card -->
+        <div class="glass-card rounded-2xl p-5 sm:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white">Projected Market Cap & Revenue Trajectory</h3>
+              <p class="text-xs text-slate-400">All values explicitly formatted in Trillions ($T) or Quadrillions ($Q)</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-sm bg-sky-400 inline-block"></span>
+                <span class="text-slate-300 font-medium">Implied Market Cap</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-sm bg-emerald-400 inline-block"></span>
+                <span class="text-slate-300 font-medium">Total Annual Revenue</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative w-full h-[320px] sm:h-[380px]">
+            <canvas id="valuationChart"></canvas>
+          </div>
+
+          <!-- Formula Footnote -->
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
+            <div>
+              <strong class="text-slate-300">Model Formula:</strong> Market Cap = <code class="text-sky-300 bg-slate-900 px-1.5 py-0.5 rounded">[( $500B × (1 + Growth)^t ) + ( min(t, 5) × GW/yr × $/GW )] × P/S</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year-by-Year Breakdown Table -->
+        <div class="glass-card rounded-2xl p-5 sm:p-6 overflow-hidden">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white">Year-by-Year Stacking Breakdown</h3>
+              <p class="text-xs text-slate-400">Notice how Orbital AI stacks for 5 years before reaching steady-state replacement</p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto -mx-5 sm:mx-0 px-5 sm:px-0">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider">
+                  <th class="py-2.5 pr-3">Year</th>
+                  <th class="py-2.5 px-3">Active Orbital AI</th>
+                  <th class="py-2.5 px-3">Orbital AI Rev</th>
+                  <th class="py-2.5 px-3">Starlink & Base</th>
+                  <th class="py-2.5 px-3 text-emerald-400">Total Revenue</th>
+                  <th class="py-2.5 pl-3 text-right text-sky-400">Implied Market Cap</th>
+                </tr>
+              </thead>
+              <tbody id="breakdownTableBody" class="divide-y divide-slate-800/60 text-slate-200">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Key Interview Highlights Section -->
+    <section class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Real Figures from the Conversation</span>
+          <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Key Highlights from the Elon Musk & Ron Baron Interview</h2>
+        </div>
+        <a href="https://www.youtube.com/watch?v=IjWbvz95w08" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-400 hover:text-sky-300 transition">
+          <span>Watch Full Interview on YouTube</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Highlight 1 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-xl p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Terrestrial AI Compute</span>
+            <span class="text-[11px] text-slate-500 font-mono">[00:19:02]</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">$35B Cost → $50B/Yr Rent</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            While rivals spend $50B–$60B over 2.5 years to build 1 GW of AI compute and lease it for ~$12B/yr, SpaceX/xAI builds 1 GW in 8–9 months for <strong>$35B</strong> and rents excess capacity for <strong>$50B/yr</strong> (~143% annual cash yield).
+          </p>
+        </div>
+
+        <!-- Highlight 2 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-xl p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30">Agentic AI & Starlink</span>
+            <span class="text-[11px] text-slate-500 font-mono">[00:46:44]</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">100,000 Satellites for AI</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Autonomous AI agents will generate <strong>1,000x human internet traffic</strong> within 5 years. Starlink will expand from 11,000 to <strong>100,000 satellites</strong> with V3 (100x total capacity) and V4 (10 Tbps laser links).
+          </p>
+        </div>
+
+        <!-- Highlight 3 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-xl p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">Starship Economics</span>
+            <span class="text-[11px] text-slate-500 font-mono">[00:36:20]</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">Under $100/kg to Orbit</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Full rapid reusability (10,000+ flights/year) drops payload launch costs from $1,500–$2,500/kg on Falcon 9 to <strong>under $100/kg</strong>, making solar-powered orbital data centers vastly cheaper than Earth power grids.
+          </p>
+        </div>
+
+        <!-- Highlight 4 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-xl p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">"Star Mind" Stacking</span>
+            <span class="text-[11px] text-slate-500 font-mono">[00:50:25]</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">$1T–$5T Added Every Year</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Launching <strong>100 GW/yr</strong> of Nvidia co-designed "Star Mind" satellites starting Q3 2027 adds $1T to $5T in recurring revenue <em>per year</em>. Since satellites last ~5 years, annual cohorts stack cumulatively.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Application Logic -->
+  <script>
+    // Baseline constants for SpaceX
+    const CURRENT_MARKET_CAP_T = 1.94; // $1.94 Trillion
+    const CURRENT_SHARE_PRICE = 145;   // ~$145 / share baseline
+
+    // Preset definitions
+    const PRESETS = {
+      base5: {
+        name: '5-Year Base ($10B/GW)',
+        gw_per_year: 100,
+        rev_per_gw: 10,
+        starlink_growth: 25,
+        ps_multiple: 12,
+        years: 5
+      },
+      bull5: {
+        name: '5-Year Bull ($50B/GW)',
+        gw_per_year: 100,
+        rev_per_gw: 50,
+        starlink_growth: 30,
+        ps_multiple: 10,
+        years: 5
+      },
+      base10: {
+        name: '10-Year Base',
+        gw_per_year: 100,
+        rev_per_gw: 10,
+        starlink_growth: 20,
+        ps_multiple: 12,
+        years: 10
+      },
+      terawatt10: {
+        name: '10-Year Terawatt Scale',
+        gw_per_year: 500,
+        rev_per_gw: 10,
+        starlink_growth: 25,
+        ps_multiple: 10,
+        years: 10
+      }
+    };
+
+    let chartInstance = null;
+    let currentActivePreset = 'base5';
+
+    /**
+     * Formats a value in Trillions ($T) into a crystal-clear human-readable string
+     * e.g., 78.31 -> "$78.31 Trillion"
+     * e.g., 1250 -> "$1.25 Quadrillion"
+     */
+    function formatTrillionsFull(valT) {
+      if (valT >= 1000) {
+        const quad = valT / 1000;
+        return '$' + quad.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Quadrillion';
+      }
+      return '$' + valT.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Trillion';
+    }
+
+    /**
+     * Shorter label for compact table cells or chart axes
+     */
+    function formatTrillionsShort(valT) {
+      if (valT >= 1000) {
+        const quad = valT / 1000;
+        return '$' + quad.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Quadrillion';
+      }
+      return '$' + valT.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'T';
+    }
+
+    /**
+     * Format GW capacity (converts >= 1000 GW to Terawatts for clarity alongside GW)
+     */
+    function formatGW(gw) {
+      if (gw >= 1000) {
+        const tw = gw / 1000;
+        return `${gw.toLocaleString('en-US')} GW (${tw.toFixed(1)} TW)`;
+      }
+      return `${gw.toLocaleString('en-US')} GW`;
+    }
+
+    /**
+     * Calculate model data for years 1..N
+     */
+    function calculateModel(params) {
+      const rows = [];
+      for (let t = 1; t <= params.years; t++) {
+        const baseRevB = 500 * Math.pow(1 + params.starlink_growth / 100, t);
+        const activeOrbitalGW = Math.min(t, 5) * params.gw_per_year;
+        const orbitalRevB = activeOrbitalGW * params.rev_per_gw;
+        const totalRevT = (baseRevB + orbitalRevB) / 1000;
+        const marketCapT = totalRevT * params.ps_multiple;
+
+        rows.push({
+          yearIndex: t,
+          calendarYear: 2027 + t,
+          baseRevT: baseRevB / 1000,
+          orbitalRevT: orbitalRevB / 1000,
+          activeOrbitalGW,
+          totalRevT,
+          marketCapT
+        });
+      }
+      return rows;
+    }
+
+    /**
+     * Read current slider values
+     */
+    function getSliderParams() {
+      return {
+        gw_per_year: Number(document.getElementById('sliderGW').value),
+        rev_per_gw: Number(document.getElementById('sliderRevPerGW').value),
+        starlink_growth: Number(document.getElementById('sliderGrowth').value),
+        ps_multiple: Number(document.getElementById('sliderPS').value),
+        years: Number(document.getElementById('sliderYears').value)
+      };
+    }
+
+    /**
+     * Triggered when user manually moves a slider
+     */
+    function onSliderChange() {
+      currentActivePreset = null;
+      updatePresetHighlight();
+      updateDashboard();
+    }
+
+    /**
+     * Apply one of the 4 preset scenarios
+     */
+    function applyPreset(presetKey) {
+      const p = PRESETS[presetKey];
+      if (!p) return;
+
+      document.getElementById('sliderGW').value = p.gw_per_year;
+      document.getElementById('sliderRevPerGW').value = p.rev_per_gw;
+      document.getElementById('sliderGrowth').value = p.starlink_growth;
+      document.getElementById('sliderPS').value = p.ps_multiple;
+      document.getElementById('sliderYears').value = p.years;
+
+      currentActivePreset = presetKey;
+      updatePresetHighlight();
+      updateDashboard();
+    }
+
+    /**
+     * Update visual styling on preset buttons
+     */
+    function updatePresetHighlight() {
+      const labelEl = document.getElementById('activePresetLabel');
+      if (currentActivePreset && PRESETS[currentActivePreset]) {
+        labelEl.textContent = `Active: ${PRESETS[currentActivePreset].name}`;
+      } else {
+        labelEl.textContent = 'Active: Custom Assumptions';
+      }
+
+      Object.keys(PRESETS).forEach(key => {
+        const btn = document.getElementById(`preset-${key}`);
+        if (!btn) return;
+        if (key === currentActivePreset) {
+          btn.className = 'preset-btn text-left p-3.5 rounded-xl border transition-all bg-sky-500/15 border-sky-400 text-white shadow-sm';
+        } else {
+          btn.className = 'preset-btn text-left p-3.5 rounded-xl border transition-all bg-slate-900/70 border-slate-800 hover:border-slate-700 text-slate-200';
+        }
+      });
+    }
+
+    /**
+     * Main UI update function
+     */
+    function updateDashboard() {
+      const params = getSliderParams();
+
+      // Update slider value badges
+      document.getElementById('valGW').textContent = `${params.gw_per_year.toLocaleString('en-US')} GW / yr`;
+      document.getElementById('valRevPerGW').textContent = `$${params.rev_per_gw} Billion / GW`;
+      document.getElementById('valGrowth').textContent = `${params.starlink_growth}% / yr`;
+      document.getElementById('valPS').textContent = `${params.ps_multiple}x Revenue`;
+      document.getElementById('valYears').textContent = `${params.years} ${params.years === 1 ? 'Year' : 'Years'} (${2027 + params.years})`;
+
+      const rows = calculateModel(params);
+      const finalRow = rows[rows.length - 1];
+
+      // Update Hero Summary Cards
+      document.getElementById('cardYearBadge').textContent = `Year ${finalRow.yearIndex} (${finalRow.calendarYear})`;
+      document.getElementById('heroMarketCap').textContent = formatTrillionsFull(finalRow.marketCapT);
+      document.getElementById('heroMarketCapSub').textContent = `At ${params.ps_multiple}x Price-to-Sales multiple`;
+
+      document.getElementById('heroRevenue').textContent = formatTrillionsFull(finalRow.totalRevT);
+      document.getElementById('heroRevenueBreakdown').textContent =
+        `${formatTrillionsShort(finalRow.orbitalRevT)} Orbital AI + ${formatTrillionsShort(finalRow.baseRevT)} Starlink/Base`;
+
+      const multipleVsCurrent = finalRow.marketCapT / CURRENT_MARKET_CAP_T;
+      const impliedSharePrice = CURRENT_SHARE_PRICE * multipleVsCurrent;
+
+      document.getElementById('heroUpsideBadge').textContent = `${multipleVsCurrent.toFixed(1)}x Current`;
+      document.getElementById('heroSharePrice').textContent =
+        '$' + Math.round(impliedSharePrice).toLocaleString('en-US') + ' / share';
+
+      document.getElementById('heroOrbitalGW').textContent = `${formatGW(finalRow.activeOrbitalGW)} in Orbit`;
+      document.getElementById('heroOrbitalSub').textContent =
+        `Generating ${formatTrillionsFull(finalRow.orbitalRevT)}/yr in AI revenue`;
+
+      // Update Year-by-Year Breakdown Table
+      const tbody = document.getElementById('breakdownTableBody');
+      tbody.innerHTML = '';
+      rows.forEach((r, idx) => {
+        const isLast = idx === rows.length - 1;
+        const tr = document.createElement('tr');
+        tr.className = isLast
+          ? 'bg-sky-500/10 font-semibold text-white'
+          : 'hover:bg-slate-800/40 transition-colors';
+
+        tr.innerHTML = `
+          <td class="py-2.5 pr-3 whitespace-nowrap">
+            Year ${r.yearIndex} <span class="text-slate-400 font-normal">(${r.calendarYear})</span>
+          </td>
+          <td class="py-2.5 px-3 whitespace-nowrap text-amber-300">${formatGW(r.activeOrbitalGW)}</td>
+          <td class="py-2.5 px-3 whitespace-nowrap">${formatTrillionsShort(r.orbitalRevT)}</td>
+          <td class="py-2.5 px-3 whitespace-nowrap">${formatTrillionsShort(r.baseRevT)}</td>
+          <td class="py-2.5 px-3 whitespace-nowrap text-emerald-300 font-medium">${formatTrillionsFull(r.totalRevT)}</td>
+          <td class="py-2.5 pl-3 text-right whitespace-nowrap text-sky-300 font-bold">${formatTrillionsFull(r.marketCapT)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update Chart.js
+      renderChart(rows);
+    }
+
+    /**
+     * Render or update the Chart.js canvas
+     */
+    function renderChart(rows) {
+      const ctx = document.getElementById('valuationChart').getContext('2d');
+      const labels = rows.map(r => `Yr ${r.yearIndex} (${r.calendarYear})`);
+      const marketCapData = rows.map(r => Number(r.marketCapT.toFixed(2)));
+      const revenueData = rows.map(r => Number(r.totalRevT.toFixed(2)));
+
+      if (chartInstance) {
+        chartInstance.data.labels = labels;
+        chartInstance.data.datasets[0].data = marketCapData;
+        chartInstance.data.datasets[1].data = revenueData;
+        chartInstance.update();
+        return;
+      }
+
+      const skyGradient = ctx.createLinearGradient(0, 0, 0, 360);
+      skyGradient.addColorStop(0, 'rgba(56, 189, 248, 0.38)');
+      skyGradient.addColorStop(1, 'rgba(56, 189, 248, 0.02)');
+
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Implied Market Cap',
+              data: marketCapData,
+              borderColor: '#38BDF8',
+              backgroundColor: skyGradient,
+              borderWidth: 3,
+              pointBackgroundColor: '#06080F',
+              pointBorderColor: '#38BDF8',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              pointHoverRadius: 7,
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Total Annual Revenue',
+              data: revenueData,
+              borderColor: '#34D399',
+              backgroundColor: 'rgba(52, 211, 153, 0.1)',
+              borderWidth: 2.5,
+              borderDash: [5, 5],
+              pointBackgroundColor: '#06080F',
+              pointBorderColor: '#34D399',
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: false,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(11, 15, 25, 0.95)',
+              titleColor: '#F8FAFC',
+              bodyColor: '#E2E8F0',
+              borderColor: 'rgba(56, 189, 248, 0.3)',
+              borderWidth: 1,
+              padding: 12,
+              callbacks: {
+                label: function(context) {
+                  const val = context.parsed.y;
+                  return `${context.dataset.label}: ${formatTrillionsFull(val)}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              },
+              ticks: {
+                color: '#94A3B8',
+                font: { family: 'Inter', size: 11 }
+              }
+            },
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: 'rgba(255, 255, 255, 0.06)'
+              },
+              ticks: {
+                color: '#94A3B8',
+                font: { family: 'Inter', size: 11 },
+                callback: function(value) {
+                  if (value >= 1000) {
+                    return '$' + (value / 1000).toFixed(1) + ' Quadrillion';
+                  }
+                  return '$' + value + ' Trillion';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * Copies a clean, shareable text summary to the clipboard so the user can text/email it directly
+     */
+    function copyShareSummary() {
+      const params = getSliderParams();
+      const rows = calculateModel(params);
+      const finalRow = rows[rows.length - 1];
+      const multipleVsCurrent = (finalRow.marketCapT / CURRENT_MARKET_CAP_T).toFixed(1);
+      const impliedSharePrice = Math.round(CURRENT_SHARE_PRICE * (finalRow.marketCapT / CURRENT_MARKET_CAP_T)).toLocaleString('en-US');
+
+      const summaryText = [
+        `SpaceX ${params.years}-Year Valuation Projection (${finalRow.calendarYear}) — Elon Musk & Ron Baron Interview Model:`,
+        `• Projected Market Cap: ${formatTrillionsFull(finalRow.marketCapT)} (${multipleVsCurrent}x today's $1.94T cap, or ~$${impliedSharePrice}/share)`,
+        `• Total Annual Revenue: ${formatTrillionsFull(finalRow.totalRevT)} (${formatTrillionsShort(finalRow.orbitalRevT)} Orbital AI + ${formatTrillionsShort(finalRow.baseRevT)} Starlink/Base)`,
+        `• Active Orbital AI Compute: ${formatGW(finalRow.activeOrbitalGW)} (${params.gw_per_year} GW added/yr at $${params.rev_per_gw}B/GW, ${params.ps_multiple}x P/S multiple)`,
+        `• Interview Video: https://www.youtube.com/watch?v=IjWbvz95w08`
+      ].join('\n');
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = summaryText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        const btnText = document.getElementById('copyBtnText');
+        btnText.textContent = 'Copied Summary!';
+        setTimeout(() => {
+          btnText.textContent = 'Copy Summary to Share';
+        }, 2500);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    window.onload = function() {
+      updateDashboard();
+    };
+  </script>
+</body>
+</html>
