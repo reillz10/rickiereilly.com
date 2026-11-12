@@ -4,7 +4,7 @@ description: Update Rickie Reilly's GitHub Pages homepage or interactive SpaceX 
 ---
 
 1. Read AGENTS.md and README.md. Confirm the Git remote points to
-   `reillz10/reillz10.github.io`. Fetch the latest source and inspect local changes
+   `reillz10/rickiereilly.com`. Fetch the latest source and inspect local changes
    before editing; preserve other people's work.
 2. Update only what the user requests. The homepage is `docs/index.html`; the
    model is `docs/spacex/index.html`. Use relative links that work both on the

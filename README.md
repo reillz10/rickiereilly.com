@@ -18,10 +18,10 @@ Its calculations run in the visitor's browser; there is no live financial feed.
 
 ## Publishing
 
-Repository: `reillz10/reillz10.github.io`.
+Repository: `reillz10/rickiereilly.com`.
 Pages source: branch `main`, directory `/docs`.
-Before domain cutover: `https://reillz10.github.io/` and
-`https://reillz10.github.io/spacex/`.
+Before domain cutover: `https://reillz10.github.io/rickiereilly.com/` and
+`https://reillz10.github.io/rickiereilly.com/spacex/`.
 Publishing main triggers GitHub Pages. Check the Pages deployment before
 reporting success. Revert a commit to undo a change.
 
